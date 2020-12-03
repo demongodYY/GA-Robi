@@ -17,7 +17,7 @@ class Robi {
     }
   }
 
-  moveUp() {
+  __moveUp() {
     this.__move(1, -1);
   }
 
@@ -26,25 +26,25 @@ class Robi {
     this.__move(1, 1);
   }
 
-  moveLeft() {
+  __moveLeft() {
     this.__move(0, -1);
   }
 
-  moveRight() {
+  __moveRight() {
     this.__move(0, 1);
   }
 
-  moveRandom() {
+  __moveRandom() {
     const dir = Math.round(Math.random()); // 0 or 1
     const step = Math.round(Math.random()) === 0 ? -1 : 1;  // -1 or 1
     this.__move(dir, step);
   }
 
-  stay() {
+  __stay() {
     return;
   }
 
-  clearItem() {
+  __clearItem() {
     const [x, y] = this.position;
     if (this.rect[y][x] === 2) {
       this.rect[y][x] = 1;
@@ -54,33 +54,33 @@ class Robi {
     }
   }
 
-  exeCommand(command) {
+  __exeCommand(command) {
     switch (command) {
       case 0:
-        this.stay();
+        this.__stay();
         break;
       case 1:
-        this.moveUp();
+        this.__moveUp();
         break;
       case 2:
         this.moveDown();
         break;
       case 3:
-        this.moveLeft();
+        this.__moveLeft();
         break;
       case 4:
-        this.moveRight();
+        this.__moveRight();
         break;
       case 5:
-        this.moveRandom();
+        this.__moveRandom();
         break;
       case 6:
-        this.clearItem();
+        this.__clearItem();
         break;
     }
   }
 
-  detectPosition() {
+  __detectPosition() {
     const getPositionStatu = (y, x) => {
       return this.rect[y] === undefined ? 0 : (this.rect[y][x] || 0);
     }
@@ -94,27 +94,27 @@ class Robi {
     return positionStatu;
   }
 
-  exeByGeneList() {
-    const positionStatu = this.detectPosition();
+  __exeByGeneList() {
+    const positionStatu = this.__detectPosition();
     const numPositionStatu = parseInt(positionStatu, 3);
     const command = this.genList[numPositionStatu];
     const debugExeCommandFunc = (command) => {
       console.log('before position:', this.position);
-      console.log('currentStatu: ', this.detectPosition());
+      console.log('currentStatu: ', this.__detectPosition());
       console.log(`exe command ${command}`);
-      this.exeCommand(command);
+      this.__exeCommand(command);
       console.log('after position:', this.position);
       console.log('score: ', this.score);
       console.log('----------------------');
     }
 
     // debugExeCommandFunc(command);
-    this.exeCommand(command);
+    this.__exeCommand(command);
   }
 
   autoExe(times = 0) {
     for (let i = 0; i < times; i++) {
-      this.exeByGeneList();
+      this.__exeByGeneList();
     }
     console.log(`FINAL SCORE: ${this.score}`);
   }
