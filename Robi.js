@@ -112,11 +112,12 @@ class Robi {
     this.__exeCommand(command);
   }
 
-  autoExe(times = 0) {
+  autoExe(times = 200) {
     for (let i = 0; i < times; i++) {
       this.__exeByGeneList();
     }
     console.log(`FINAL SCORE: ${this.score}`);
+    return this.score;
   }
 }
 

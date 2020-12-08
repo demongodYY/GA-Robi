@@ -1,4 +1,15 @@
-function simpleOptimizeGeneList(geneList) {
+
+function randomGeneList() {
+  const geneList = Array.from(new Array(243), () => Math.floor(Math.random() * (6 - 0 + 1) + 0));
+  return geneList;
+}
+
+function randomMoveGeneList() {
+  return Array.from(new Array(243), () => 5);
+}
+
+function simpleOptimizeGeneList() {
+  const geneList = randomMoveGeneList();
   return geneList.map((statu, index) => {
     const strIndex = ('00000' + index.toString(3)).slice(-5);
     if (strIndex[4] === '2') {
@@ -26,5 +37,7 @@ function simpleOptimizeGeneList(geneList) {
 }
 
 module.exports = {
+  randomGeneList,
+  randomMoveGeneList,
   simpleOptimizeGeneList
 }

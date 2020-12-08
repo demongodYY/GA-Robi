@@ -1,12 +1,4 @@
-
-function getRandomGeneList() {
-  const geneList = Array.from(new Array(243), () => Math.floor(Math.random() * (6 - 0 + 1) + 0));
-  return geneList;
-}
-
-function getAllRandomMoveGeneList() {
-  return Array.from(new Array(243), () => 5);
-}
+const Robi = require('./Robi')
 
 function getRandomRect() {
   const rect = new Array(10);
@@ -19,9 +11,22 @@ function getRandomRect() {
   return rect;
 }
 
+function getRobiTestAveScore(geneList, times = 1000) {
+  console.log(`run Robi ${times} times...`)
+  let sumScore = 0;
+  for (let i = 0; i < 1000; i++) {
+    const rect = getRandomRect();
+    const robi = new Robi(geneList, rect);
+    const score = robi.autoExe();
+    sumScore += score;
+  }
+  const aveScore = Math.round(sumScore / 1000);
+  console.log('average score: ', aveScore);
+  return aveScore;
+}
+
 
 module.exports = {
-  getRandomGeneList,
-  getAllRandomMoveGeneList,
-  getRandomRect
+  getRandomRect,
+  getRobiTestAveScore
 }
