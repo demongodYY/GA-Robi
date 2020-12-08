@@ -1,4 +1,4 @@
-const { getRandomIntNum } = require('./utils')
+const { getRandomIntNum, getStrStatu } = require('./utils')
 
 
 function randomGeneList() {
@@ -13,7 +13,7 @@ function randomMoveGeneList() {
 function simpleOptimizeGeneList() {
   const geneList = randomMoveGeneList();
   return geneList.map((statu, index) => {
-    const strIndex = ('00000' + index.toString(3)).slice(-5);
+    const strIndex = getStrStatu(index);
     if (strIndex[4] === '2') {
       return 6;
     }

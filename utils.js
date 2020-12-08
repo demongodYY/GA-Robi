@@ -28,10 +28,15 @@ function getRandomIntNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+function getStrStatu(numStatu) {
+  return ('00000' + numStatu.toString(3)).slice(-5);
+}
+
 
 
 module.exports = {
   getRandomRect,
   getRobiTestAveScore,
-  getRandomIntNum
+  getRandomIntNum,
+  getStrStatu
 }
