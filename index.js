@@ -1,6 +1,5 @@
-const Robi = require('./Robi');
 const { getRobiTestAveScore } = require('./utils');
-const { simpleOptimizeGeneList, randomGeneList } = require('./geneList');
+const { simpleOptimizeGeneList } = require('./geneList');
 const GA = require('./GA');
 
 function testGeneListRun() {
