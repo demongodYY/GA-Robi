@@ -2,13 +2,15 @@ const { getRobiTestAveScore } = require('./utils');
 const { simpleOptimizeGeneList } = require('./geneList');
 const GA = require('./GA');
 
-function testGeneListRun() {
-  const geneList = simpleOptimizeGeneList();
+function geneListRun(geneList) {
   const score = getRobiTestAveScore(geneList);
   console.log('GENE LIST:', geneList.join(''));
   console.log('SCORE:', score);
+}
 
-  return;
+function testSimpleList() {
+  const geneList = simpleOptimizeGeneList();
+  geneListRun(geneList);
 }
 
 function testGaList() {
@@ -20,27 +22,23 @@ function testGaList() {
 }
 
 function testMadeGaList() {
-  const strGaList = require('./ga_history.json')['2000'][0];
-  const gaList = strGaList
-    .split('')
-    .map(t => parseInt(t));
-  const score = getRobiTestAveScore(gaList);
-  console.log('GENE LIST:', strGaList);
-  console.log('SCORE:', score);
+  const strGeneList = require('./ga_history.json')['2000'][0];
+  const geneList = strGeneList.split('').map(t => parseInt(t));
+  geneListRun(geneList);
 
   // console.log('-----------------------------')
-  // console.log(gaList[parseInt('21111', 3)]);
-  // console.log(gaList[parseInt('12111', 3)]);
-  // console.log(gaList[parseInt('11211', 3)]);
-  // console.log(gaList[parseInt('11121', 3)]);
-  // console.log(gaList[parseInt('11112', 3)]);
+  // console.log(geneList[parseInt('21111', 3)]);
+  // console.log(geneList[parseInt('12111', 3)]);
+  // console.log(geneList[parseInt('11211', 3)]);
+  // console.log(geneList[parseInt('11121', 3)]);
+  // console.log(geneList[parseInt('11112', 3)]);
 }
 
 
 // testGaList();
 
 console.log('-------------run simple optimize geneList-----------')
-testGeneListRun();
+testSimpleList();
 
 console.log('-------------run GA geneList-----------')
 testMadeGaList();
