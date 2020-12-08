@@ -12,21 +12,26 @@ function getRandomRect() {
 }
 
 function getRobiTestAveScore(geneList, times = 1000) {
-  console.log(`run Robi ${times} times...`)
   let sumScore = 0;
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < times; i++) {
     const rect = getRandomRect();
     const robi = new Robi(geneList, rect);
     const score = robi.autoExe();
     sumScore += score;
   }
-  const aveScore = Math.round(sumScore / 1000);
-  console.log('average score: ', aveScore);
+  const aveScore = Math.round(sumScore / times);
+  // console.log('average score: ', aveScore);
   return aveScore;
 }
+
+function getRandomIntNum(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 
 
 module.exports = {
   getRandomRect,
-  getRobiTestAveScore
+  getRobiTestAveScore,
+  getRandomIntNum
 }

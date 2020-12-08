@@ -90,7 +90,7 @@ class Robi {
     const leftStatu = getPositionStatu(y, x - 1);
     const rightStatu = getPositionStatu(y, x + 1);
     const middleStatu = getPositionStatu(y, x);
-    const positionStatu = [upStatu, downStatu, leftStatu, rightStatu, middleStatu].join('');
+    const positionStatu = [upStatu, downStatu, leftStatu, rightStatu, middleStatu].join(''); //上下左右中
     return positionStatu;
   }
 
@@ -116,7 +116,7 @@ class Robi {
     for (let i = 0; i < times; i++) {
       this.__exeByGeneList();
     }
-    console.log(`FINAL SCORE: ${this.score}`);
+    // console.log(`FINAL SCORE: ${this.score}`);
     return this.score;
   }
 }
