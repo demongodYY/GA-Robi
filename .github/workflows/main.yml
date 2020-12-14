@@ -44,4 +44,3 @@ jobs:
           BRANCH: gh-pages
           FOLDER: page/build
           CLEAN: true
-          BASE_BRANCH: main
