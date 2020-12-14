@@ -27,9 +27,6 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: Checkout
-        uses: actions/checkout@page
-
       - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@master
         env:
