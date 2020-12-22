@@ -34,12 +34,21 @@ Robi 每次得分规则如下：
 - `3` 向左移动
 - `4` 向右移动
 - `5` 随机移动
-- `6` 青少垃圾
+- `6` 清扫垃圾
 
 ### Robi 的行动基因
 将 Robi 可能遇到的 243 种情况（`00000 ~ 22222`）通过 **三进制** 编码作为长度为 243 的数组的索引，并填上对应的行动，就构成了 Robi 的行动基因。
 
 ![image](https://user-images.githubusercontent.com/17036920/102896428-53209600-44a1-11eb-9423-2ceb5d2dba76.png)
+
+## 目录结构
+
+- `lib/Robi.js` Robi 的游戏运行
+- `lib/GA.js` 遗传算法
+- `lib/geneList.js` 生成的几种简单基因序列
+- `lib/utils.js` 常用方法
+- `data/ga_history.json` 已经用遗传算法生成出的基因序列
+- `page 目录` 浏览器端的例子
 
 ## 运行 Robi 例子
 ### 浏览器运行
@@ -55,6 +64,8 @@ Robi 每次得分规则如下：
 
 1. `cd 项目目录`
 2. `node test.js`
+
+![image](https://user-images.githubusercontent.com/17036920/102898230-2621b280-44a4-11eb-899e-fd87bee1f331.png)
 
 ## 基因生成算法
 ### 简单优化基因
@@ -95,3 +106,29 @@ function simpleOptimizeGeneList() {
   });
 }
 ```
+
+### 遗传算法生成基因序列
+
+1. 随机生成 200 个基因序列，放入基因序列池
+2. 将基因序列池中的每条基因序列运行游戏 100 次求对应的平均分
+3. 从基因序列池中随机选取两条基因序列，分数越高选中的概率越大
+4. 从一个随机位置断开两条序列，将序列 A 的前半段和序列 B 的后半段拼接，将序列 B 的前半段与序列 A 的后半段拼接，生成两条新的序列
+5. 有很小的几率选取两条序列上的几个位置进行变异（随机变成另外一个行动指令）
+6. 将两条序列放入新的基因序列池
+7. 回到第 `3` 步重复，直到新的基因序列池有 200 个基因序列。
+8. 用新的基因序列池，回到第 `2` 步开始重复，迭代 1000 次
+9. 从最新的基因序列池中选取平均分最高的那条。
+
+迭代次数，基因序列池的大小可以自己更改。
+
+
+#### 迭代分数对比
+![image](https://user-images.githubusercontent.com/17036920/102899250-9aa92100-44a5-11eb-8642-e726f5ad9b6c.png)
+
+![image](https://user-images.githubusercontent.com/17036920/102899263-9da41180-44a5-11eb-893d-6c181eeae555.png)
+
+![image](https://user-images.githubusercontent.com/17036920/102899270-a09f0200-44a5-11eb-8356-44f2ce97bb76.png)
+
+![image](https://user-images.githubusercontent.com/17036920/102899275-a268c580-44a5-11eb-9648-91c74c991807.png)
+
+![image](https://user-images.githubusercontent.com/17036920/102899396-c88e6580-44a5-11eb-8b4d-349ab863e60f.png)
