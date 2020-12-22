@@ -121,6 +121,45 @@ function simpleOptimizeGeneList() {
 
 > 注：迭代次数，基因序列池的大小可以自己更改，会影响最终成绩。
 
+``` javascript
+//每轮迭代生成新的基因序列池
+  __makeCrowdIteration() {
+    const childrenGenesCrowd = [];
+    for (let i = 0; i < this.crowdNums / 2; i++) {
+      const [fIdx, mIdx] = this.__randomPickTwoGeneIndex(this.currentCrwodScores);
+      // console.log('CHOOSED: ', fIdx, currentCrwodScores[fIdx], mIdx, currentCrwodScores[mIdx]);
+      const [childGeneList1, childGeneList2] = this.__makeChildGeneList(this.genesCrowd[fIdx], this.genesCrowd[mIdx]);
+      childrenGenesCrowd.push(childGeneList1);
+      childrenGenesCrowd.push(childGeneList2);
+    }
+    this.genesCrowd = childrenGenesCrowd;
+    this.currentCrwodScores = this.__getGenesScore();
+  }
+```
+
+```javascript
+//生成子序列
+  __makeChildGeneList(fGeneList, mGeneList) {
+    const position = getRandomIntNum(0, 242);
+    const child1 = fGeneList.slice(0, position).concat(mGeneList.slice(position));
+    const child2 = mGeneList.slice(0, position).concat(fGeneList.slice(position));
+    const mutatedChild1 = this.__geneMutate(child1);
+    const mutatedChild2 = this.__geneMutate(child2);
+    return [mutatedChild1, mutatedChild2];
+  }
+  
+//变异函数
+  __geneMutate(geneList) {
+    return geneList.map(gene => {
+      const randomNum = getRandomIntNum(0, 1000);
+      if (randomNum < 1) {
+        return getRandomIntNum(1, 6);
+      }
+      return gene;
+    })
+  }
+```
+
 
 #### 迭代分数对比
 ![image](https://user-images.githubusercontent.com/17036920/102899250-9aa92100-44a5-11eb-8642-e726f5ad9b6c.png)
