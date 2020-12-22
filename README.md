@@ -127,7 +127,6 @@ function simpleOptimizeGeneList() {
     const childrenGenesCrowd = [];
     for (let i = 0; i < this.crowdNums / 2; i++) {
       const [fIdx, mIdx] = this.__randomPickTwoGeneIndex(this.currentCrwodScores);
-      // console.log('CHOOSED: ', fIdx, currentCrwodScores[fIdx], mIdx, currentCrwodScores[mIdx]);
       const [childGeneList1, childGeneList2] = this.__makeChildGeneList(this.genesCrowd[fIdx], this.genesCrowd[mIdx]);
       childrenGenesCrowd.push(childGeneList1);
       childrenGenesCrowd.push(childGeneList2);
