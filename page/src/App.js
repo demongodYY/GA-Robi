@@ -103,29 +103,34 @@ function App() {
   }
 
   const renderRobi = () => {
-    if (!robi) return <div className="game-wrapper"></div>
     return (
-      <div className="game-wrapper">
-        <h1>第 {times} 步，分数：{score}</h1>
-        <div className='rect-wrapper'>
-          {rect.map((row, yIndex) => {
-            return <div className="rect-row" key={yIndex}>
-              {row.map((unit, xIndex) => {
-                return (
-                  <div className="rect-unit" key={xIndex}>
-                    {unit === 2 ? 'X' : ''}
-                    {xPosition === xIndex && yPosition === yIndex ? <img className="robi-img" src={robiImg} alt="role"></img> : null}
-                  </div>)
-              })}</div>
-          })}
-        </div>
-        <button onClick={handleRobiRun}>运行</button>
-        <button onClick={handleReset}>重置</button>
+      <div className="game-container">
+        <p className="game-desc">
+          <b>游戏规则：</b>
+          行动 200 步，成功清扫一处垃圾加 10 分，若在没有垃圾处执行清扫动作扣 1 分，撞墙（超出边界）扣 5 分。（总共 100 个格子，大约 50 个垃圾）
+        </p>
+        {robi ? <div className="game-wrapper">
+          <h1>第 {times} 步，分数：{score}</h1>
+          <div className='rect-wrapper'>
+            {rect.map((row, yIndex) => {
+              return <div className="rect-row" key={yIndex}>
+                {row.map((unit, xIndex) => {
+                  return (
+                    <div className="rect-unit" key={xIndex}>
+                      {unit === 2 ? 'X' : ''}
+                      {xPosition === xIndex && yPosition === yIndex ? <img className="robi-img" src={robiImg} alt="role"></img> : null}
+                    </div>)
+                })}</div>
+            })}
+          </div>
+          <button onClick={handleRobiRun}>运行</button>
+          <button onClick={handleReset}>重置</button>
+        </div> : '等待 Robi 的生成...'}
       </div>
     )
   }
 
-  const renderCreateRobiHeader = () => {
+  const renderCreateRobi = () => {
 
     const renderCommandLine = (title, command, head = false) => {
       return <p className={head ? 'head-command' : 'normal-command'}>
@@ -185,7 +190,7 @@ function App() {
   return (
     <div className="App">
       {renderGeneConsole()}
-      {renderCreateRobiHeader()}
+      {renderCreateRobi()}
       {renderRobi()}
     </div>
   );

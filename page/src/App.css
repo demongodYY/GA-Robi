@@ -6,9 +6,19 @@
 }
 
 .game-wrapper{
-  width: 440px;
+  width: 100%;
   background-color: #fbf2e3;
-  min-height: 100%;
+}
+
+.game-container {
+  width: 440px;
+}
+
+
+.game-desc{
+  text-align: left;
+  color: #666666;
+  font-size: 12px;
 }
 
 .rect-wrapper {
