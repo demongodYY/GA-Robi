@@ -113,7 +113,7 @@ function App() {
   }
 
   const getGAList = async () => {
-    addConsoleResult(`开始用遗传算法生成基因序列...`);
+    addConsoleResult(`开始用遗传算法生成基因序列（1000 次迭代）...`);
     ga = new GA();
     const initScores = ga.currentCrwodScores;
     showScores(initScores);
