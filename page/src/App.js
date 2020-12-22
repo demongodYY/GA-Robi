@@ -63,8 +63,8 @@ function App() {
               {row.map((unit, xIndex) => {
                 return (
                   <div className="rect-unit" key={xIndex}>
-                    {unit == 2 ? 'X' : ''}
-                    {xPosition == xIndex && yPosition == yIndex ? <img className="robi-img" src={robiImg}></img> : null}
+                    {unit === 2 ? 'X' : ''}
+                    {xPosition === xIndex && yPosition === yIndex ? <img className="robi-img" src={robiImg} alt="role"></img> : null}
                   </div>)
               })}</div>
           })}
