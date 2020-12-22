@@ -8,7 +8,7 @@ import robiImg from '../public/Robi.png';
 import * as R from 'ramda';
 
 import { simpleOptimizeGeneList, randomGeneList } from '../../lib/geneList';
-import { getRandomRect, calScores } from '../../lib/utils';
+import { getRandomRect, calScores, getStrStatu, getPlainStatu, getPlainCommand } from '../../lib/utils';
 import { Robi } from '../../lib/Robi';
 import { GA } from '../../lib/GA';
 
@@ -27,8 +27,13 @@ function App() {
   let ga = null;
 
   const createRobi = (geneList) => {
+    if (geneList.length !== 243) {
+      alert('基因检测失败：请输入长度为 243 的正确基因序列');
+      return;
+    }
     const oRobi = new Robi(geneList, getRandomRect());
     setRobi(oRobi);
+    alert('Robi 已成功设置新的基因序列');
   }
 
   const handleRobiRun = () => {
@@ -50,58 +55,6 @@ function App() {
     setY(robi.position[1]);
     setScore(robi.score);
     setTimes(0);
-  }
-
-  const renderRobi = () => {
-    if (!robi) return <div className="game-wrapper"></div>
-    return (
-      <div className="game-wrapper">
-        <h1>第 {times} 步，分数：{score}</h1>
-        <div className='rect-wrapper'>
-          {rect.map((row, yIndex) => {
-            return <div className="rect-row" key={yIndex}>
-              {row.map((unit, xIndex) => {
-                return (
-                  <div className="rect-unit" key={xIndex}>
-                    {unit === 2 ? 'X' : ''}
-                    {xPosition === xIndex && yPosition === yIndex ? <img className="robi-img" src={robiImg} alt="role"></img> : null}
-                  </div>)
-              })}</div>
-          })}
-        </div>
-        <button onClick={handleRobiRun}>运行</button>
-        <button onClick={handleReset}>重置</button>
-      </div>
-    )
-  }
-
-  const renderCreateRobiHeader = () => {
-    return <div className="gene-wrapper">
-      <textarea className="gene-input" value={strGene} onChange={evt => {
-        setStrGene(evt.target.value);
-      }}></textarea>
-      <button onClick={() => {
-        const gene = strGene.split('').map(s => parseInt(s));
-        createRobi(gene);
-      }}>生成 Robi</button>
-    </div>
-  }
-
-  const renderGeneConsole = () => {
-    return <div className="console-wrapper">
-      <div className="console-btns">
-        <button onClick={() => {
-          addConsoleResult(randomGeneList().join(''), '随机基因');
-        }}>生成随机基因</button>
-        <button onClick={() => {
-          addConsoleResult(simpleOptimizeGeneList().join(''), '简单优化基因');
-        }}>生成简单优化基因</button>
-        <button onClick={getGAList}>开始遗传算法生成基因</button>
-        <button onClick={stopGA}>停止遗传算法</button>
-        <button onClick={clearResult}>清空结果栏</button>
-      </div>
-      <div className="console-result" ref={resultRef}></div>
-    </div>
   }
 
   const showScores = (scores, time = 0) => {
@@ -147,7 +100,75 @@ function App() {
       resultWrapper.appendChild(contentWrapper);
       contentWrapper.scrollIntoView({ block: 'end', inline: 'nearest', behavior: 'smooth' });
     }
+  }
 
+  const renderRobi = () => {
+    if (!robi) return <div className="game-wrapper"></div>
+    return (
+      <div className="game-wrapper">
+        <h1>第 {times} 步，分数：{score}</h1>
+        <div className='rect-wrapper'>
+          {rect.map((row, yIndex) => {
+            return <div className="rect-row" key={yIndex}>
+              {row.map((unit, xIndex) => {
+                return (
+                  <div className="rect-unit" key={xIndex}>
+                    {unit === 2 ? 'X' : ''}
+                    {xPosition === xIndex && yPosition === yIndex ? <img className="robi-img" src={robiImg} alt="role"></img> : null}
+                  </div>)
+              })}</div>
+          })}
+        </div>
+        <button onClick={handleRobiRun}>运行</button>
+        <button onClick={handleReset}>重置</button>
+      </div>
+    )
+  }
+
+  const renderCreateRobiHeader = () => {
+
+    const renderCommandLine = (title, command, head = false) => {
+      return <p className={head ? 'head-command' : 'normal-command'}>
+        <span className="command-title">{title}</span>
+        <span className="command-content">{command}</span>
+      </p>
+    }
+
+    return <div className="gene-wrapper">
+      <textarea className="gene-input" placeholder="请填入长度为 243 的基因序列..." value={strGene} onChange={evt => {
+        setStrGene(evt.target.value);
+      }}></textarea>
+      <div className="command">
+        {renderCommandLine('上下左右中 (xxxxx)', '指令', true)}
+        {strGene.split('').map((cmd, index) => {
+          const strIndex = getStrStatu(index);
+          const plainIndex = getPlainStatu(strIndex);
+          const plainCmd = getPlainCommand(cmd);
+          return renderCommandLine(`${plainIndex} (${strIndex})`, `${plainCmd} (${cmd})`);
+        })}
+      </div>
+      <button onClick={() => {
+        const gene = strGene.split('').map(s => parseInt(s));
+        createRobi(gene);
+      }}>生成 Robi</button>
+    </div>
+  }
+
+  const renderGeneConsole = () => {
+    return <div className="console-wrapper">
+      <div className="console-btns">
+        <button onClick={() => {
+          addConsoleResult(randomGeneList().join(''), '随机基因');
+        }}>生成随机基因序列</button>
+        <button onClick={() => {
+          addConsoleResult(simpleOptimizeGeneList().join(''), '简单优化基因序列');
+        }}>生成简单优化基因</button>
+        <button onClick={getGAList}>开始遗传算法生成基因</button>
+        <button onClick={stopGA}>停止遗传算法</button>
+        <button onClick={clearResult}>清空结果栏</button>
+      </div>
+      <div className="console-result" ref={resultRef}></div>
+    </div>
   }
 
   useEffect(() => {

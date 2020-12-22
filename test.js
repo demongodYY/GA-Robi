@@ -15,7 +15,7 @@ function testSimpleList() {
 
 function testGaList() {
   const ga = new GA();
-  const gaList = ga.getEvolvedGeneList(2000);
+  const gaList = ga.getEvolvedGeneList(1000);
   console.log('GENE LIST:', gaList.join(''));
   const score = getRobiTestAveScore(gaList);
   console.log('SCORE:', score);
@@ -40,9 +40,9 @@ function testMadeGaList() {
 console.log('-------------run simple optimize geneList-----------')
 testSimpleList();
 
-console.log('-------------run GA geneList-----------')
+console.log('-------------run made GA geneList-----------')
 testMadeGaList();
 
-console.log('-------------test gene GA geneList-----------')
+console.log('-------------test create GA geneList-----------')
 testGaList();
 
