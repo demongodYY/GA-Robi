@@ -1,6 +1,6 @@
 const { getRobiTestAveScore } = require('./lib/utils');
 const { simpleOptimizeGeneList } = require('./lib/geneList');
-const GA = require('./lib/GA');
+const { GA } = require('./lib/GA');
 
 function geneListRun(geneList) {
   const score = getRobiTestAveScore(geneList);
@@ -42,3 +42,7 @@ testSimpleList();
 
 console.log('-------------run GA geneList-----------')
 testMadeGaList();
+
+console.log('-------------test gene GA geneList-----------')
+testGaList();
+
