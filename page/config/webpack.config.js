@@ -192,6 +192,8 @@ module.exports = function (webpackEnv) {
         ]
         : paths.appIndexJs,
     output: {
+      library: 'robi-[name]',
+      libraryTarget: 'umd',
       // The build folder.
       path: isEnvProduction ? paths.appBuild : undefined,
       // Add /* filename */ comments to generated require()s in the output.

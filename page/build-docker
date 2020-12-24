@@ -1,0 +1,7 @@
+npm run build
+
+docker build -t robi:201223 .
+
+docker tag robi:201223 registry.cn-shenzhen.aliyuncs.com/lan_jane/robi:201223
+
+docker push registry.cn-shenzhen.aliyuncs.com/lan_jane/robi:201223
