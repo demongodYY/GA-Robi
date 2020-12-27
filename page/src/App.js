@@ -47,6 +47,15 @@ function App() {
     }), 200);
   }
 
+  const handleRobiRunStep = () => {
+    robi.__exeByGeneList();
+    setRect(robi.rect);
+    setX(robi.position[0]);
+    setY(robi.position[1]);
+    setScore(robi.score);
+    setTimes(times + 1);
+  }
+
   const handleReset = () => {
     const newRect = getRandomRect();
     robi.resetGame(newRect);
@@ -123,6 +132,8 @@ function App() {
                 })}</div>
             })}
           </div>
+
+          <button onClick={handleRobiRunStep}>单步运行</button>
           <button onClick={handleRobiRun}>运行</button>
           <button onClick={handleReset}>重置</button>
         </div> : '等待 Robi 的生成...'}

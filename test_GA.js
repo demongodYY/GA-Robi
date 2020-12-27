@@ -1,23 +1,8 @@
 const { getRobiTestAveScore } = require('./lib/utils');
-const { simpleOptimizeGeneList } = require('./lib/geneList');
-const { GA } = require('./lib/GA');
 
 function geneListRun(geneList) {
   const score = getRobiTestAveScore(geneList);
   console.log('GENE LIST:', geneList.join(''));
-  console.log('SCORE:', score);
-}
-
-function testSimpleList() {
-  const geneList = simpleOptimizeGeneList();
-  geneListRun(geneList);
-}
-
-function testGaList() {
-  const ga = new GA();
-  const gaList = ga.getEvolvedGeneList(1000);
-  console.log('GENE LIST:', gaList.join(''));
-  const score = getRobiTestAveScore(gaList);
   console.log('SCORE:', score);
 }
 
@@ -35,14 +20,6 @@ function testMadeGaList() {
 }
 
 
-// testGaList();
-
-console.log('-------------run simple optimize geneList-----------')
-testSimpleList();
 
 console.log('-------------run made GA geneList-----------')
 testMadeGaList();
-
-console.log('-------------test create GA geneList-----------')
-testGaList();
-
