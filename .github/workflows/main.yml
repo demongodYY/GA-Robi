@@ -41,7 +41,7 @@ jobs:
           yarn build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@main
+        uses: JamesIves/github-pages-deploy-action@release/v4
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
