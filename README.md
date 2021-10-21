@@ -137,6 +137,25 @@ function simpleOptimizeGeneList() {
 ```
 
 ```javascript
+//根据适应性随机选取两条基因
+  __randomPickTwoGeneIndex(crwodScores) {
+    const result = [];
+    let loopTimes = 0;
+    while (true) {
+      if (result.length >= 2) break;
+      const randomBaseScore = getRandomIntNum(400 - Math.floor(loopTimes / 100), 500);
+      const randomIndex = getRandomIntNum(0, 199);
+      if (randomIndex === result[0]) continue;    //avoid choose self;
+      loopTimes += 1;
+      if (crwodScores[randomIndex] > randomBaseScore) {
+        result.push(randomIndex)
+      };
+    }
+    return result;
+  }
+```
+
+```javascript
 //生成子序列
   __makeChildGeneList(fGeneList, mGeneList) {
     const position = getRandomIntNum(0, 242);
